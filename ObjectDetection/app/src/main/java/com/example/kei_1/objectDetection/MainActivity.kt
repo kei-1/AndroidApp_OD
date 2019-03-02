@@ -17,14 +17,22 @@ import com.fasterxml.jackson.module.kotlin.readValue
 class MainActivity : AppCompatActivity() {
 
     val URL = "http://10.0.2.2:3000/image"
+    val path =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val getButton = findViewById(R.id.button) as Button
+        val intent: Intent = getIntent()
+        if(intent.getStringExtra("path")!=null) {
+            val path: String = intent.getStringExtra("path")
+            val text = findViewById<TextView>(R.id.text)
+            text.setText(path)
+        }
 
-        getButton.setOnClickListener {
+        val button = findViewById(R.id.button) as Button
+
+        button.setOnClickListener {
             val intent = Intent(this, ListFile::class.java)
             startActivity(intent)
         }

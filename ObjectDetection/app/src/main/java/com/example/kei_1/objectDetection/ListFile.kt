@@ -1,6 +1,7 @@
 package com.example.kei_1.objectDetection
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
@@ -33,6 +34,10 @@ class ListFile : AppCompatActivity() {
                 showFiles()
             }else{
                 Toast.makeText(this,file.absolutePath,Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("path",file.absolutePath)
+                startActivity(intent)
+
             }
         }
         recyclerView.adapter=adapter
@@ -48,7 +53,6 @@ class ListFile : AppCompatActivity() {
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
             return false
         }
-
         return true
     }
 
