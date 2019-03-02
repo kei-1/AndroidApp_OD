@@ -1,4 +1,4 @@
-package com.kei_1.objectdetection
+package com.example.kei_1.objectDetection
 
 import org.junit.Test
 
