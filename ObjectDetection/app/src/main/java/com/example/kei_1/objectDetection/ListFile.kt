@@ -36,6 +36,7 @@ class ListFile : AppCompatActivity() {
                 Toast.makeText(this,file.absolutePath,Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("path",file.absolutePath)
+                intent.putExtra("filename",file.name)
                 startActivity(intent)
 
             }

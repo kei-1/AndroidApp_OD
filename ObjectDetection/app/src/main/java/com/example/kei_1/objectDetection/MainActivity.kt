@@ -17,38 +17,40 @@ import com.fasterxml.jackson.module.kotlin.readValue
 class MainActivity : AppCompatActivity() {
 
     val URL = "http://10.0.2.2:3000/image"
-    val path =null
+    private var path: String =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val intent: Intent = getIntent()
-        if(intent.getStringExtra("path")!=null) {
-            val path: String = intent.getStringExtra("path")
+        if(intent.getStringExtra("path")=="") {
+            path= intent.getStringExtra("path")
+            val filename:String = intent.getStringExtra("filename")
             val text = findViewById<TextView>(R.id.text)
             text.setText(path)
         }
+        val a=intent.getStringExtra("path")
 
         val button = findViewById(R.id.button) as Button
+        val searchbutton = findViewById(R.id.search) as Button
+
 
         button.setOnClickListener {
             val intent = Intent(this, ListFile::class.java)
             startActivity(intent)
         }
-        /*
-        getButton.setOnClickListener(object : View.OnClickListener {
+
+        searchbutton.setOnClickListener(object : View.OnClickListener {
             override
             fun onClick(view: View) {
                 onParallelGetButtonClick()
             }
         })
-     */
     }
 
     fun onParallelGetButtonClick() = GlobalScope.launch(Dispatchers.Main) {
         val http = HttpUtil()
-        val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
 
         async(Dispatchers.Default) { http.httpPOSTimage(URL,path) }.await().let {
             val textView = findViewById(R.id.text) as TextView

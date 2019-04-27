@@ -6,9 +6,6 @@ import okhttp3.Request
 import java.io.File
 import okhttp3.RequestBody
 
-
-
-
 class HttpUtil {
     fun httpGET(url : String): String? {
         val client = OkHttpClient()
